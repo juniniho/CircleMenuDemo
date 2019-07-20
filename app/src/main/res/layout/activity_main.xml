@@ -1,0 +1,98 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:circle="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".MainActivity">
+
+    <view.CircleLayout
+        android:id="@+id/main_circle_layout"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="-175dp"
+        circle:firstChildPosition="North"
+        circle:isRotating="true">
+
+
+        <view.CircleImageView
+            android:id="@+id/iv_album"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/shop_home_new_xc3"
+            circle:name="相册"/>
+
+        <view.CircleImageView
+            android:id="@+id/iv_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/shop_home_new_sp3"
+            circle:name="视频"/>
+
+        <view.CircleImageView
+            android:id="@+id/iv_720"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/shop_home_new_7203"
+            circle:name="720"/>
+
+        <view.CircleImageView
+            android:id="@+id/iv_album_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/shop_home_new_xc3"
+            circle:name="相册"/>
+
+        <view.CircleImageView
+            android:id="@+id/iv_video_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/shop_home_new_sp3"
+            circle:name="视频"/>
+
+        <view.CircleImageView
+            android:id="@+id/iv_720_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/shop_home_new_7203"
+            circle:name="720"/>
+
+
+    </view.CircleLayout>
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3个菜单"
+        android:onClick="onClick3menu"
+        />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4个菜单"
+        android:layout_toEndOf="@id/button3"
+        android:onClick="onClick4menu"
+        />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2个菜单"
+        android:layout_toEndOf="@id/button4"
+        android:onClick="onClick2menu"/>
+
+    <Button
+        android:id="@+id/buttonClear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="clear"
+        android:onClick="onClickClear"
+        android:layout_toEndOf="@id/button2"/>
+
+</RelativeLayout>
