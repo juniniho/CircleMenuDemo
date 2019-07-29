@@ -19,6 +19,7 @@ package view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.DrawableRes;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
@@ -35,10 +36,7 @@ import com.zp2.myapplication.R;
  */
 public class CircleImageView extends ImageView {
 
-	private float angle = 0;
-	private int position = 0;
 	private String name;
-	private boolean isHide;
 	private int resId;
 	private CircleMenu circleMenu;
 
@@ -50,31 +48,7 @@ public class CircleImageView extends ImageView {
 		this.resId = resId;
 	}
 
-	public boolean isHide() {
-		return isHide;
-	}
 
-	public void setHide(boolean hide) {
-		isHide = hide;
-	}
-
-	public float getAngle() {
-		return angle;
-	}
-
-
-	public void setAngle(float angle) {
-		this.angle = angle;
-	}
-
-	public int getPosition() {
-		return position;
-	}
-
-	public void setPosition(int position) {
-		this.position = position;
-	}
-	
 	public String getName(){
 		return name;
 	}
@@ -123,6 +97,10 @@ public class CircleImageView extends ImageView {
 			
 			name = a.getString(R.styleable.CircleImageView_name);
 		}
+	}
+
+	public boolean isEmpty(){
+		return TextUtils.isEmpty(name) && resId == 0;
 	}
 
 }

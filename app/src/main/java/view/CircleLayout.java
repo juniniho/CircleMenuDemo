@@ -43,7 +43,6 @@ public class CircleLayout extends ViewGroup {
 
     private static final String TAG = "CircleLayout";
 
-    private boolean twoMenuMode = false;
 
     public enum FirstChildPosition {
         EAST(0), SOUTH(90), WEST(180), NORTH(270);
@@ -568,13 +567,24 @@ public class CircleLayout extends ViewGroup {
 
             boolean isClock = isClockRotate(e1.getX() - circleWidth/2.0f,e1.getY() - circleHeight/2.0f,e2.getX() - circleWidth/2.0f,e2.getY() - circleHeight/2.0f,velocityX);
             Log.d(TAG,"isClock="+isClock);
+
+            View leftView = getLeftMenu();
+            CircleImageView leftCiv = null;
+            if(leftView instanceof CircleImageView){
+                leftCiv = (CircleImageView) leftView;
+            }
+            View rightView = getRightMenu();
+            CircleImageView rightCiv = null;
+            if(rightView instanceof CircleImageView){
+                rightCiv = (CircleImageView) rightView;
+            }
             if(isClock){
-                if(!twoMenuMode || getSelectedViewIndex() == 0) {
-                    rotateViewToCenter(getLeftMenu());
+                if(leftCiv == null || !leftCiv.isEmpty()) {
+                    rotateViewToCenter(leftView);
                 }
             }else {
-                if(!twoMenuMode || getSelectedViewIndex() == 5) {
-                    rotateViewToCenter(getRightMenu());
+                if(rightCiv == null || !rightCiv.isEmpty()) {
+                    rotateViewToCenter(rightView);
                 }
             }
 
@@ -722,11 +732,4 @@ public class CircleLayout extends ViewGroup {
         this.onRotationFinishedListener = onRotationFinishedListener;
     }
 
-    public boolean isTwoMenuMode() {
-        return twoMenuMode;
-    }
-
-    public void setTwoMenuMode(boolean twoMenuMode) {
-        this.twoMenuMode = twoMenuMode;
-    }
 }

@@ -65,7 +65,6 @@ public class MainActivity extends Activity implements CircleLayout.OnItemSelecte
 
     public void onClick3menu(View view) {
         menuCount = 3;
-        circleLayout.setTwoMenuMode(false);
         circleLayout.removeAllViews();
         addChild(CircleMenu.ALBUM);
         addChild(CircleMenu.VIDEO);
@@ -76,7 +75,6 @@ public class MainActivity extends Activity implements CircleLayout.OnItemSelecte
     }
 
     public void onClick4menu(View view) {
-        circleLayout.setTwoMenuMode(false);
         menuCount = 4;
         circleLayout.removeAllViews();
         addChild(CircleMenu.ALBUM);
@@ -91,14 +89,14 @@ public class MainActivity extends Activity implements CircleLayout.OnItemSelecte
 
     public void onClick2menu(View view) {
         menuCount = 2;
-        circleLayout.setTwoMenuMode(true);
         circleLayout.removeAllViews();
         addChild(CircleMenu.ALBUM);
-        addStub();
-        addStub();
-        addStub();
-        addStub();
         addChild(CircleMenu.VIDEO);
+        addStub();
+        addStub();
+        addStub();
+        addStub();
+
     }
 
     public void onClickClear(View view) {
