@@ -17,47 +17,7 @@
         circle:isRotating="true">
 
 
-        <view.CircleImageView
-            android:id="@+id/iv_album"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/shop_home_new_xc3"
-            circle:name="相册"/>
 
-        <view.CircleImageView
-            android:id="@+id/iv_video"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/shop_home_new_sp3"
-            circle:name="视频"/>
-
-        <view.CircleImageView
-            android:id="@+id/iv_720"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/shop_home_new_7203"
-            circle:name="720"/>
-
-        <view.CircleImageView
-            android:id="@+id/iv_album_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/shop_home_new_xc3"
-            circle:name="相册"/>
-
-        <view.CircleImageView
-            android:id="@+id/iv_video_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/shop_home_new_sp3"
-            circle:name="视频"/>
-
-        <view.CircleImageView
-            android:id="@+id/iv_720_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/shop_home_new_7203"
-            circle:name="720"/>
 
 
     </view.CircleLayout>
@@ -86,13 +46,13 @@
         android:text="2个菜单"
         android:layout_toEndOf="@id/button4"
         android:onClick="onClick2menu"/>
-
     <Button
-        android:id="@+id/buttonClear"
+        android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="clear"
-        android:onClick="onClickClear"
-        android:layout_toEndOf="@id/button2"/>
+        android:text="1个菜单"
+        android:layout_toEndOf="@id/button2"
+        android:onClick="onClick1menu" />
+
 
 </RelativeLayout>

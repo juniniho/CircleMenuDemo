@@ -26,6 +26,9 @@ import android.widget.ImageView;
 import com.zp2.myapplication.CircleMenu;
 import com.zp2.myapplication.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * 
@@ -39,6 +42,8 @@ public class CircleImageView extends ImageView {
 	private String name;
 	private int resId;
 	private CircleMenu circleMenu;
+	public static List<CircleMenu> sMenuList = new ArrayList<>();
+	private int menuListIndex;
 
 	public int getResId() {
 		return resId;
@@ -67,6 +72,15 @@ public class CircleImageView extends ImageView {
 		setImageResource(getResId());
 		setName(circleMenu.getName());
 
+	}
+
+	public int getMenuListIndex() {
+		return menuListIndex;
+	}
+
+	public void setMenuListIndex(int menuListIndex) {
+		this.menuListIndex = menuListIndex;
+		setCircleMenu(sMenuList.get(menuListIndex));
 	}
 
 	/**
@@ -99,8 +113,12 @@ public class CircleImageView extends ImageView {
 		}
 	}
 
+	/**
+	 * 是否是占位空白
+	 * @return
+	 */
 	public boolean isEmpty(){
-		return TextUtils.isEmpty(name) && resId == 0;
+		return TextUtils.isEmpty(name) || resId == 0;
 	}
 
 }

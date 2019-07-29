@@ -11,7 +11,7 @@ import view.CircleLayout;
 public class MainActivity extends Activity implements CircleLayout.OnItemSelectedListener {
 
     private CircleLayout circleLayout;
-    public int menuCount = 3;
+    public static final int CHILD_COUNT = 6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,27 +22,24 @@ public class MainActivity extends Activity implements CircleLayout.OnItemSelecte
         circleLayout.setOnRotationFinishedListener(new CircleLayout.OnRotationFinishedListener() {
             @Override
             public void onRotationFinished(View view) {
-                if(menuCount == 4){
-                    CircleMenu fouthMenu = find4thMenu();
-                    ((CircleImageView)circleLayout.getMenuByPos(2)).setCircleMenu(fouthMenu);
-                    ((CircleImageView)circleLayout.getMenuByPos(4)).setCircleMenu(fouthMenu);
-                }
-
+                setNextMenu();
             }
         });
 
+        findViewById(R.id.button3).performClick();
+
     }
 
-    private CircleMenu find4thMenu(){
-        CircleImageView leftMenu = (CircleImageView) circleLayout.getLeftMenu();
-        CircleImageView selectedMenu = (CircleImageView) circleLayout.getSelectedItem();
-        CircleImageView rightMenu = (CircleImageView) circleLayout.getRightMenu();
-        for(CircleMenu c : CircleMenu.values()){
-            if(c != leftMenu.getCircleMenu() && c != selectedMenu.getCircleMenu() && c != rightMenu.getCircleMenu()){
-                return c;
-            }
+    private void setNextMenu(){
+        if(CircleImageView.sMenuList.size() >= 3){
+            int secondPosIndex = ((CircleImageView)circleLayout.getMenuByPos(1)).getMenuListIndex() + 1;
+            secondPosIndex = normalization(secondPosIndex);
+            ((CircleImageView)circleLayout.getMenuByPos(2)).setMenuListIndex(secondPosIndex);
+
+            int fourthPosIndex = ((CircleImageView)circleLayout.getMenuByPos(5)).getMenuListIndex() - 1;
+            fourthPosIndex = normalization(fourthPosIndex);
+            ((CircleImageView)circleLayout.getMenuByPos(4)).setMenuListIndex(fourthPosIndex);
         }
-        return CircleMenu.LIVE;
     }
 
     @Override
@@ -62,33 +59,54 @@ public class MainActivity extends Activity implements CircleLayout.OnItemSelecte
         circleLayout.addView(stub);
     }
 
+    private int normalization(int index){
+        if(index < 0){
+            index += CircleImageView.sMenuList.size();
+        }
+        index %= CircleImageView.sMenuList.size();
+        return index;
+    }
+
+    private void initMenu(){
+        circleLayout.removeAllViews();
+        for(int i = 0; i< CHILD_COUNT; i++){
+            addStub();
+        }
+
+        for(int i = -2;i<=2;i++){
+            int index = i;
+            if(index < 0){
+                index += CHILD_COUNT;
+            }
+            CircleImageView civ = (CircleImageView) circleLayout.getChildAt(index);
+            civ.setMenuListIndex(normalization(i+1));
+        }
+    }
 
     public void onClick3menu(View view) {
-        menuCount = 3;
-        circleLayout.removeAllViews();
-        addChild(CircleMenu.ALBUM);
-        addChild(CircleMenu.VIDEO);
-        addChild(CircleMenu.VR);
-        addChild(CircleMenu.ALBUM);
-        addChild(CircleMenu.VIDEO);
-        addChild(CircleMenu.VR);
+        CircleImageView.sMenuList.clear();
+        CircleImageView.sMenuList.add(CircleMenu.ALBUM);
+        CircleImageView.sMenuList.add(CircleMenu.VIDEO);
+        CircleImageView.sMenuList.add(CircleMenu.VR);
+        initMenu();
     }
 
     public void onClick4menu(View view) {
-        menuCount = 4;
-        circleLayout.removeAllViews();
-        addChild(CircleMenu.ALBUM);
-        addChild(CircleMenu.VIDEO);
-        addChild(CircleMenu.LIVE);
-        addChild(CircleMenu.LIVE);
-        addChild(CircleMenu.LIVE);
-        addChild(CircleMenu.VR);
+        CircleImageView.sMenuList.clear();
+        CircleImageView.sMenuList.add(CircleMenu.ALBUM);
+        CircleImageView.sMenuList.add(CircleMenu.VIDEO);
+        CircleImageView.sMenuList.add(CircleMenu.VR);
+        CircleImageView.sMenuList.add(CircleMenu.LIVE);
+        initMenu();
 
 
     }
 
     public void onClick2menu(View view) {
-        menuCount = 2;
+        CircleImageView.sMenuList.clear();
+        CircleImageView.sMenuList.add(CircleMenu.ALBUM);
+        CircleImageView.sMenuList.add(CircleMenu.VIDEO);
+
         circleLayout.removeAllViews();
         addChild(CircleMenu.ALBUM);
         addChild(CircleMenu.VIDEO);
@@ -99,7 +117,16 @@ public class MainActivity extends Activity implements CircleLayout.OnItemSelecte
 
     }
 
-    public void onClickClear(View view) {
+    public void onClick1menu(View view) {
+        CircleImageView.sMenuList.clear();
+        CircleImageView.sMenuList.add(CircleMenu.ALBUM);
+
         circleLayout.removeAllViews();
+        addChild(CircleMenu.ALBUM);
+        addStub();
+        addStub();
+        addStub();
+        addStub();
+        addStub();
     }
 }
