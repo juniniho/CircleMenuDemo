@@ -114,11 +114,11 @@ public class CircleImageView extends ImageView {
 	}
 
 	/**
-	 * 是否是占位空白
+	 * 是否是占位空白，注意只根据name判断
 	 * @return
 	 */
 	public boolean isEmpty(){
-		return TextUtils.isEmpty(name) || resId == 0;
+		return TextUtils.isEmpty(name);
 	}
 
 }
