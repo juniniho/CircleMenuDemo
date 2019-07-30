@@ -565,55 +565,10 @@ public class CircleLayout extends ViewGroup {
             int q2 = getPositionQuadrant(e2.getX() - (circleWidth / 2),
                     circleHeight - e2.getY() - (circleHeight / 2));
 
-            boolean isClock = isClockRotate(e1.getX() - circleWidth/2.0f,e1.getY() - circleHeight/2.0f,e2.getX() - circleWidth/2.0f,e2.getY() - circleHeight/2.0f,velocityX);
-            Log.d(TAG,"isClock="+isClock);
-
-            View leftView = getLeftMenu();
-            CircleImageView leftCiv = null;
-            if(leftView instanceof CircleImageView){
-                leftCiv = (CircleImageView) leftView;
-            }
-            View rightView = getRightMenu();
-            CircleImageView rightCiv = null;
-            if(rightView instanceof CircleImageView){
-                rightCiv = (CircleImageView) rightView;
-            }
-            if(isClock){
-                if(leftCiv == null || !leftCiv.isEmpty()) {
-                    rotateViewToCenter(leftView);
-                }
-            }else {
-                if(rightCiv == null || !rightCiv.isEmpty()) {
-                    rotateViewToCenter(rightView);
-                }
-            }
+            boolean isClock = isClockRotate(e1.getX() - circleWidth/2.0f,e1.getY() - circleHeight/2.0f,e2.getX() - circleWidth/2.0f,e2.getY() - circleHeight/2.0f);
+            dealRotate(isClock);
 
             return true;
-        }
-
-        /**
-         * 计算旋转方向
-         * @param x1
-         * @param y1
-         * @param x2
-         * @param y2
-         * @param vx
-         * @return true顺时针，false逆时针
-         */
-        private boolean isClockRotate(float x1,float y1,float x2,float y2,float vx){
-            boolean isClock;
-
-            float dx = x2 - x1;
-            float dy = y2 - y1;
-            if(dx == 0) {
-                isClock = (x1 * dy > 0);
-            }else {
-                float y = y1 - x1 * dy / dx;
-                isClock = (y * dx < 0);
-                Log.d(TAG, "isClockRotate() called with: x1 = [" + x1 + "], y1 = [" + y1 + "], x2 = [" + x2 + "], y2 = [" + y2 + "], vx = [" + vx + "],dx="+dx+",y="+y);
-            }
-
-            return isClock;
         }
 
         private float getCenteredAngle(float angle) {
@@ -730,6 +685,53 @@ public class CircleLayout extends ViewGroup {
     public void setOnRotationFinishedListener(
             OnRotationFinishedListener onRotationFinishedListener) {
         this.onRotationFinishedListener = onRotationFinishedListener;
+    }
+
+    /**
+     * 计算旋转方向
+     * @param x1
+     * @param y1
+     * @param x2
+     * @param y2
+     * @return true顺时针，false逆时针
+     */
+    public static boolean isClockRotate(float x1,float y1,float x2,float y2){
+        boolean isClock;
+
+        float dx = x2 - x1;
+        float dy = y2 - y1;
+        if(dx == 0) {
+            isClock = (x1 * dy > 0);
+        }else {
+            float y = y1 - x1 * dy / dx;
+            isClock = (y * dx < 0);
+            Log.d(TAG, "isClockRotate() called with: x1 = [" + x1 + "], y1 = [" + y1 + "], x2 = [" + x2 + "], y2 = [" + y2 + "],dx="+dx+",y="+y);
+        }
+        Log.d(TAG,"isClock="+isClock);
+        return isClock;
+    }
+
+    public void dealRotate(boolean isClock){
+        View leftView = getLeftMenu();
+        CircleImageView leftCiv = null;
+        if(leftView instanceof CircleImageView){
+            leftCiv = (CircleImageView) leftView;
+        }
+        View rightView = getRightMenu();
+        CircleImageView rightCiv = null;
+        if(rightView instanceof CircleImageView){
+            rightCiv = (CircleImageView) rightView;
+        }
+        if(isClock){
+            if(leftCiv == null || !leftCiv.isEmpty()) {
+                rotateViewToCenter(leftView);
+            }
+        }else {
+            if(rightCiv == null || !rightCiv.isEmpty()) {
+                rotateViewToCenter(rightView);
+            }
+        }
+
     }
 
 }

@@ -3,6 +3,8 @@ package com.zp2.myapplication;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 
 import view.CircleImageView;
@@ -12,6 +14,10 @@ public class MainActivity extends Activity implements CircleLayout.OnItemSelecte
 
     private CircleLayout circleLayout;
     public static final int CHILD_COUNT = 6;
+    private GestureDetector gestureDetector;
+
+    private float offsetX;
+    private float offsetY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +32,20 @@ public class MainActivity extends Activity implements CircleLayout.OnItemSelecte
             }
         });
 
+        circleLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                int circleWidth = circleLayout.getWidth();
+                int circleHeight = circleLayout.getHeight();
+                offsetX = circleWidth/2f + circleLayout.getLeft();
+                offsetY = circleHeight/2f + circleLayout.getTop();
+            }
+        });
+
+        gestureDetector = new GestureDetector(this,new MyGestureListener());
+
         findViewById(R.id.button3).performClick();
+
 
     }
 
@@ -129,4 +148,20 @@ public class MainActivity extends Activity implements CircleLayout.OnItemSelecte
         addStub();
         addStub();
     }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        gestureDetector.onTouchEvent(event);
+        return true;
+    }
+
+    private class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            boolean isClock = CircleLayout.isClockRotate(e1.getX() - offsetX,e1.getY() - offsetY,e2.getX() - offsetX,e2.getY() - offsetY);
+            circleLayout.dealRotate(isClock);
+            return true;
+        }
+    }
+
 }

@@ -16,10 +16,6 @@
         circle:firstChildPosition="North"
         circle:isRotating="true">
 
-
-
-
-
     </view.CircleLayout>
 
     <Button
