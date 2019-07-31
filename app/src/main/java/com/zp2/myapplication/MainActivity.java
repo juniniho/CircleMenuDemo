@@ -37,8 +37,10 @@ public class MainActivity extends Activity implements CircleLayout.OnItemSelecte
             public void run() {
                 int circleWidth = circleLayout.getWidth();
                 int circleHeight = circleLayout.getHeight();
-                offsetX = circleWidth/2f + circleLayout.getX();
-                offsetY = circleHeight/2f + circleLayout.getY();
+                int[] outRect = new int[2];
+                circleLayout.getLocationOnScreen(outRect);
+                offsetX = circleWidth/2f + outRect[0];
+                offsetY = circleHeight/2f + outRect[1];
             }
         });
 
@@ -158,9 +160,10 @@ public class MainActivity extends Activity implements CircleLayout.OnItemSelecte
     private class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            super.onFling(e1,e2,velocityX, velocityY);
             boolean isClock = CircleLayout.isClockRotate(e1.getX() - offsetX,e1.getY() - offsetY,e2.getX() - offsetX,e2.getY() - offsetY);
             circleLayout.dealRotate(isClock);
-            return true;
+            return false;
         }
     }
 
