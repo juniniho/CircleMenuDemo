@@ -37,8 +37,8 @@ public class MainActivity extends Activity implements CircleLayout.OnItemSelecte
             public void run() {
                 int circleWidth = circleLayout.getWidth();
                 int circleHeight = circleLayout.getHeight();
-                offsetX = circleWidth/2f + circleLayout.getLeft();
-                offsetY = circleHeight/2f + circleLayout.getTop();
+                offsetX = circleWidth/2f + circleLayout.getX();
+                offsetY = circleHeight/2f + circleLayout.getY();
             }
         });
 
@@ -98,7 +98,7 @@ public class MainActivity extends Activity implements CircleLayout.OnItemSelecte
                 index += CHILD_COUNT;
             }
             CircleImageView civ = (CircleImageView) circleLayout.getChildAt(index);
-            civ.setMenuListIndex(normalization(i+1));
+            civ.setMenuListIndex(normalization(i));
         }
     }
 
